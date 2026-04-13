@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { SITE, PRODUCTS, MARKETS } from '../lib/config'
+---
+
+<Layout>
+  <!-- Hero -->
+  <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1602607712066-63af5c8a489c?w=1600&q=80" alt="Handmade candles" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" loading="eager" />
+    <div class="relative text-center px-6">
+      <p class="text-sage-light text-sm uppercase tracking-[0.25em] mb-4" style="font-family: system-ui, sans-serif;">Handmade in Travelers Rest, SC</p>
+      <h1 class="text-5xl md:text-7xl text-cream tracking-tight">Ember & Oak</h1>
+      <p class="mt-4 text-xl text-cream/80 italic">{SITE.tagline}</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#shop" class="rounded-full bg-sage px-8 py-3 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Shop Now</a>
+        <a href="#markets" class="rounded-full border border-cream/30 px-8 py-3 font-medium text-cream hover:bg-cream/10 transition-colors" style="font-family: system-ui, sans-serif;">Find Us at Markets</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline AI Ask Bar -->
+  <section class="bg-warm py-8 px-6">
+    <div class="mx-auto max-w-xl">
+      <div class="flex gap-2">
+        <input id="ai-ask" type="text" placeholder="Ask anything — best candle for a gift? What scents do you have? Do you do wedding favors?" class="flex-1 rounded-full border border-sage/20 bg-white px-5 py-3 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
+        <button id="ai-send" class="rounded-full bg-sage px-5 py-3 text-sm font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Ask</button>
+      </div>
+      <div id="ai-response" class="hidden mt-3 rounded-xl bg-white border border-sage/10 p-4 text-sm text-charcoal leading-relaxed"></div>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section id="shop" class="py-20 px-6">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="text-3xl text-center mb-2">Shop</h2>
+      <p class="text-center text-muted text-sm mb-10">Free shipping on orders over $50. Everything handmade in small batches.</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {PRODUCTS.map((product) => (
+          <div class="group rounded-xl border border-sage/10 bg-white overflow-hidden hover:shadow-md transition-shadow">
+            <div class="aspect-square overflow-hidden">
+              <img src={product.image} alt={product.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <p class="text-xs text-sage uppercase tracking-wide" style="font-family: system-ui, sans-serif;">{product.category}</p>
+              <h3 class="font-medium text-charcoal mt-1">{product.name}</h3>
+              <p class="text-xs text-muted mt-1 leading-relaxed">{product.description}</p>
+              <div class="flex items-center justify-between mt-3">
+                <span class="text-lg font-medium text-sage-dark">{product.price}</span>
+                <button class="rounded-full bg-sage px-4 py-1.5 text-xs font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-muted mt-8">No Etsy fees. No platform commissions. You buy direct from the maker.</p>
+    </div>
+  </section>
+
+  <!-- Market Schedule -->
+  <section id="markets" class="py-20 px-6 bg-warm">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl text-center mb-2">Find Us at Markets</h2>
+      <p class="text-center text-muted text-sm mb-10">Touch it, smell it, take it home. We'd love to meet you in person.</p>
+      <div class="space-y-3">
+        {MARKETS.map((market) => (
+          <div class="flex items-center justify-between rounded-xl border border-sage/10 bg-white px-5 py-4">
+            <div>
+              <h3 class="font-medium text-charcoal">{market.name}</h3>
+              <p class="text-sm text-muted">{market.day} &middot; {market.time}</p>
+            </div>
+            <span class="text-xs bg-sage/10 text-sage-dark px-3 py-1 rounded-full" style="font-family: system-ui, sans-serif;">{market.season}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Orders -->
+  <section id="custom" class="py-20 px-6">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-3xl text-center mb-2">Custom Orders</h2>
+      <p class="text-center text-muted text-sm mb-10">Wedding favors, corporate gifts, event scenting, custom labels. Tell us what you're dreaming up.</p>
+
+      <form id="custom-form" class="space-y-4 bg-white rounded-xl border border-sage/10 p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Your Name</label>
+            <input type="text" name="name" required class="w-full rounded-lg border border-sage/20 px-4 py-2.5 text-sm bg-cream focus:border-sage focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Email</label>
+            <input type="email" name="email" required class="w-full rounded-lg border border-sage/20 px-4 py-2.5 text-sm bg-cream focus:border-sage focus:outline-none" />
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Order Type</label>
+            <select name="type" required class="w-full rounded-lg border border-sage/20 px-4 py-2.5 text-sm bg-cream focus:border-sage focus:outline-none">
+              <option value="">Select...</option>
+              <option value="wedding">Wedding Favors</option>
+              <option value="corporate">Corporate Gifts</option>
+              <option value="event">Event Scenting</option>
+              <option value="custom-label">Custom Label Candles</option>
+              <option value="wholesale">Wholesale Inquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Quantity</label>
+            <select name="quantity" class="w-full rounded-lg border border-sage/20 px-4 py-2.5 text-sm bg-cream focus:border-sage focus:outline-none">
+              <option value="">Approximate...</option>
+              <option value="10-25">10–25</option>
+              <option value="25-50">25–50</option>
+              <option value="50-100">50–100</option>
+              <option value="100+">100+</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Tell us about your vision</label>
+          <textarea name="details" rows="3" placeholder="Scents, colors, labels, timeline..." class="w-full rounded-lg border border-sage/20 px-4 py-2.5 text-sm bg-cream focus:border-sage focus:outline-none"></textarea>
+        </div>
+        <button type="submit" class="w-full rounded-full bg-sage px-6 py-3 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">
+          Request a Quote
+        </button>
+        <div id="form-status" class="hidden rounded-lg p-3 text-center text-sm"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20 px-6 bg-warm">
+    <div class="mx-auto max-w-4xl grid md:grid-cols-2 gap-10 items-center">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Studio workspace" class="rounded-xl aspect-[4/5] object-cover" loading="lazy" />
+      <div>
+        <h2 class="text-3xl mb-4">Our Story</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          Ember & Oak started at a kitchen table in Travelers Rest — one candle at a time. What began as a hobby for my own home turned into something bigger when friends kept asking "where did you get that candle?"
+        </p>
+        <p class="text-muted leading-relaxed mb-4">
+          Every candle is hand-poured in small batches using 100% soy wax and cotton wicks. Every soap is cold-processed with ingredients I can pronounce. Nothing mass-produced. Nothing rushed.
+        </p>
+        <p class="text-muted leading-relaxed mb-4">
+          You'll find us at farmers markets across the Upstate on weekends, and right here online the rest of the time. We ship everywhere in the US — free over $50.
+        </p>
+        <p class="text-charcoal font-medium italic">— Sarah, maker & owner</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-16 px-6 bg-sage text-center">
+    <div class="mx-auto max-w-md">
+      <h2 class="text-2xl text-cream mb-2">Stay in the loop</h2>
+      <p class="text-cream/70 text-sm mb-6">New scents, market schedule, and restocks. No spam — just the good stuff.</p>
+      <form id="newsletter-form" class="flex gap-2">
+        <input type="email" name="email" placeholder="Your email" required class="flex-1 rounded-full bg-white/10 border border-cream/20 px-5 py-2.5 text-sm text-cream placeholder:text-cream/50 focus:border-cream/50 focus:outline-none" />
+        <button type="submit" class="rounded-full bg-cream text-sage-dark px-6 py-2.5 text-sm font-medium hover:bg-white transition-colors" style="font-family: system-ui, sans-serif;">Subscribe</button>
+      </form>
+      <div id="newsletter-status" class="hidden mt-3 text-sm text-cream/80"></div>
+    </div>
+  </section>
+
+  <script>
+    // Custom order form
+    document.getElementById('custom-form')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const status = document.getElementById('form-status')!
+      status.textContent = 'Thank you! We\'ll get back to you within 48 hours with a custom quote.'
+      status.className = 'rounded-lg bg-sage/10 border border-sage/20 p-3 text-center text-sm text-sage-dark'
+      ;(e.target as HTMLFormElement).querySelectorAll('input, select, textarea, button').forEach(el => (el as HTMLInputElement).disabled = true)
+    })
+
+    // Newsletter
+    document.getElementById('newsletter-form')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const status = document.getElementById('newsletter-status')!
+      status.textContent = 'You\'re in! Check your inbox for a welcome note.'
+      status.classList.remove('hidden')
+      ;(e.target as HTMLFormElement).querySelectorAll('input, button').forEach(el => (el as HTMLInputElement).disabled = true)
+    })
+
+    // Inline AI ask
+    const aiInput = document.getElementById('ai-ask') as HTMLInputElement
+    const aiSend = document.getElementById('ai-send')!
+    const aiResponse = document.getElementById('ai-response')!
+
+    async function askAI() {
+      const text = aiInput.value.trim()
+      if (!text) return
+      aiResponse.textContent = 'Thinking...'
+      aiResponse.classList.remove('hidden')
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text }),
+        })
+        const data = await res.json()
+        aiResponse.textContent = data.reply || 'I couldn\'t find an answer. Try asking about our products, markets, or custom orders!'
+      } catch {
+        aiResponse.textContent = 'Something went wrong. Email us at hello@emberandoak.com!'
+      }
+    }
+
+    aiSend.addEventListener('click', askAI)
+    aiInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') askAI() })
+  </script>
+</Layout>

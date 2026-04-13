@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sage: #6B7F5E;
+  --color-sage-light: #8FA07E;
+  --color-sage-dark: #4A5940;
+  --color-cream: #FAF7F2;
+  --color-warm: #F5EDE3;
+  --color-terracotta: #C67B5C;
+  --color-terracotta-light: #D4977E;
+  --color-charcoal: #2D2926;
+  --color-muted: #8C8680;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', 'Times New Roman', serif; color: #2D2926; }
+h1, h2, h3 { font-family: 'Georgia', serif; font-weight: 400; }
