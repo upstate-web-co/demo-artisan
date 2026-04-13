@@ -17,6 +17,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -26,7 +27,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <!-- Nav -->
   <nav class="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-sage/10">
     <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
-      <a href="/" class="text-xl tracking-wide text-charcoal"><span class="text-sage-dark font-medium">Ember</span> & Oak</a>
+      <a href="/" class="text-xl tracking-wide text-charcoal"><span class="text-sage-dark font-medium">Wren</span> & Fable</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#shop" class="text-muted hover:text-sage-dark transition-colors">Shop</a>
         <a href="#markets" class="text-muted hover:text-sage-dark transition-colors">Markets</a>
@@ -44,7 +45,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <!-- Demo Disclaimer -->
   <div class="bg-yellow-50 border-y border-yellow-200 py-3 px-6 text-center">
     <p class="text-xs text-yellow-800">
-      <strong>Portfolio Demo</strong> — This is a sample site built by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a> to showcase what we build for this industry. This is not a real business.
+      <strong>Portfolio Demo</strong> — This is a fictional business created by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a>. All names, locations, and details are entirely fictional.
     </p>
   </div>
 
@@ -53,7 +54,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
     <div class="mx-auto max-w-6xl px-6 py-10">
       <div class="grid md:grid-cols-3 gap-8">
         <div>
-          <p class="text-lg tracking-wide"><span class="text-sage-dark font-medium">Ember</span> & Oak</p>
+          <p class="text-lg tracking-wide"><span class="text-sage-dark font-medium">Wren</span> & Fable</p>
           <p class="text-sm text-muted mt-2">{SITE.tagline}</p>
           <p class="text-sm text-muted mt-1">{SITE.location}</p>
         </div>

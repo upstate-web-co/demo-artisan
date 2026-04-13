@@ -8,8 +8,8 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
   <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
     <img src="https://images.unsplash.com/photo-1602607712066-63af5c8a489c?w=1600&q=80" alt="Handmade candles" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" loading="eager" />
     <div class="relative text-center px-6">
-      <p class="text-sage-light text-sm uppercase tracking-[0.25em] mb-4" style="font-family: system-ui, sans-serif;">Handmade in Travelers Rest, SC</p>
-      <h1 class="text-5xl md:text-7xl text-cream tracking-tight">Ember & Oak</h1>
+      <p class="text-sage-light text-sm uppercase tracking-[0.25em] mb-4" style="font-family: system-ui, sans-serif;">Handmade in Small Batches</p>
+      <h1 class="text-5xl md:text-7xl text-cream tracking-tight">Wren & Fable</h1>
       <p class="mt-4 text-xl text-cream/80 italic">{SITE.tagline}</p>
       <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a href="#shop" class="rounded-full bg-sage px-8 py-3 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Shop Now</a>
@@ -135,13 +135,13 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
       <div>
         <h2 class="text-3xl mb-4">Our Story</h2>
         <p class="text-muted leading-relaxed mb-4">
-          Ember & Oak started at a kitchen table in Travelers Rest — one candle at a time. What began as a hobby for my own home turned into something bigger when friends kept asking "where did you get that candle?"
+          Wren & Fable started at a kitchen table — one candle at a time. What began as a hobby for my own home turned into something bigger when friends kept asking "where did you get that candle?"
         </p>
         <p class="text-muted leading-relaxed mb-4">
           Every candle is hand-poured in small batches using 100% soy wax and cotton wicks. Every soap is cold-processed with ingredients I can pronounce. Nothing mass-produced. Nothing rushed.
         </p>
         <p class="text-muted leading-relaxed mb-4">
-          You'll find us at farmers markets across the Upstate on weekends, and right here online the rest of the time. We ship everywhere in the US — free over $50.
+          You'll find us at local markets on weekends, and right here online the rest of the time. We ship everywhere in the US — free over $50.
         </p>
         <p class="text-charcoal font-medium italic">— Sarah, maker & owner</p>
       </div>
@@ -199,7 +199,7 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
         const data = await res.json()
         aiResponse.textContent = data.reply || 'I couldn\'t find an answer. Try asking about our products, markets, or custom orders!'
       } catch {
-        aiResponse.textContent = 'Something went wrong. Email us at hello@emberandoak.com!'
+        aiResponse.textContent = 'Something went wrong. Email us at hello@wrenandfable.com!'
       }
     }
 

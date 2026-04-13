@@ -13,7 +13,7 @@ CUSTOM ORDERS: Wedding favors, corporate gifts, custom labels, event scenting. F
 
 SHIPPING: Free over $50. US only. Ships within 3-5 business days.
 
-ABOUT: Handmade in small batches by Sarah in Travelers Rest, SC. 100% soy wax, cotton wicks, cold-processed soaps.
+ABOUT: Handmade in small batches by Sarah. 100% soy wax, cotton wicks, cold-processed soaps.
 
 RULES:
 - Be warm, helpful, and knowledgeable about the products
@@ -41,7 +41,7 @@ export async function POST({ request, locals }: APIContext) {
         return Response.json({ reply: `We have two soaps: Honey Oat ($12, great for sensitive skin) and Charcoal Detox ($14, deep-cleansing for face and body). Both cold-processed and handmade.` })
       }
       if (lower.includes('market') || lower.includes('where') || lower.includes('find')) {
-        return Response.json({ reply: `You can find us at Travelers Rest Farmers Market (Sat 8am-12pm, Apr-Oct) and TD Saturday Market downtown (1st & 3rd Sat, year-round). We're also stocked at Main Collective in Taylors!` })
+        return Response.json({ reply: `You can find us at Riverside Artisan Market (Sat 8am-12pm, Apr-Oct) and Downtown Makers Fair (1st & 3rd Sat, year-round). We're also stocked at The Collective year-round!` })
       }
       if (lower.includes('custom') || lower.includes('wedding') || lower.includes('gift') || lower.includes('corporate') || lower.includes('wholesale')) {
         return Response.json({ reply: `We'd love to help! Fill out the custom order form on this page with your details (type, quantity, timeline) and we'll send a quote within 48 hours.` })

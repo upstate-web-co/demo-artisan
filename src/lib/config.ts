@@ -1,10 +1,10 @@
 export const SITE = {
-  name: 'Ember & Oak Studio',
+  name: 'Wren & Fable Studio',
   tagline: 'Handmade candles, soaps & home goods',
-  url: 'https://emberandoak.com',
-  email: 'hello@emberandoak.com',
+  url: 'https://wrenandfable.com',
+  email: 'hello@wrenandfable.com',
   phone: '(864) 555-4821',
-  location: 'Travelers Rest, SC',
+  location: 'Greenville, SC',
 } as const
 
 export const PRODUCTS = [
@@ -19,8 +19,8 @@ export const PRODUCTS = [
 ]
 
 export const MARKETS = [
-  { name: 'Travelers Rest Farmers Market', day: 'Every Saturday', time: '8am – 12pm', season: 'Apr – Oct' },
-  { name: 'TD Saturday Market (Downtown GVL)', day: '1st & 3rd Saturday', time: '9am – 1pm', season: 'Year-round' },
-  { name: 'Greer Station Market', day: '2nd Saturday', time: '9am – 12pm', season: 'May – Sep' },
-  { name: 'Main Collective (Taylors)', day: 'Daily', time: 'Store hours', season: 'Year-round retail' },
+  { name: 'Riverside Artisan Market (Saturdays)', day: 'Every Saturday', time: '8am – 12pm', season: 'Apr – Oct' },
+  { name: 'Downtown Makers Fair (First Fridays)', day: '1st & 3rd Saturday', time: '9am – 1pm', season: 'Year-round' },
+  { name: 'Hillside Craft Market', day: '2nd Saturday', time: '9am – 12pm', season: 'May – Sep' },
+  { name: 'The Collective — year-round retail partner', day: 'Daily', time: 'Store hours', season: 'Year-round retail' },
 ]
