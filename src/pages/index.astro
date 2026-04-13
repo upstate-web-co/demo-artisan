@@ -35,18 +35,23 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
       <h2 class="text-3xl text-center mb-2">Shop</h2>
       <p class="text-center text-muted text-sm mb-10">Free shipping on orders over $50. Everything handmade in small batches.</p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {PRODUCTS.map((product) => (
+        {PRODUCTS.map((product, i) => (
           <div class="group rounded-xl border border-sage/10 bg-white overflow-hidden hover:shadow-md transition-shadow">
-            <div class="aspect-square overflow-hidden">
+            <div class="aspect-square overflow-hidden cursor-pointer" data-product-toggle={i}>
               <img src={product.image} alt={product.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
             <div class="p-4">
               <p class="text-xs text-sage uppercase tracking-wide" style="font-family: system-ui, sans-serif;">{product.category}</p>
-              <h3 class="font-medium text-charcoal mt-1">{product.name}</h3>
+              <h3 class="font-medium text-charcoal mt-1 cursor-pointer" data-product-toggle={i}>{product.name}</h3>
               <p class="text-xs text-muted mt-1 leading-relaxed">{product.description}</p>
               <div class="flex items-center justify-between mt-3">
                 <span class="text-lg font-medium text-sage-dark">{product.price}</span>
-                <button class="rounded-full bg-sage px-4 py-1.5 text-xs font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Add to Cart</button>
+                <button class="rounded-full bg-sage px-4 py-1.5 text-xs font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;" data-inquire-btn data-product-name={product.name}>Inquire</button>
+              </div>
+              <div class="hidden mt-3 pt-3 border-t border-sage/10" data-product-detail={i}>
+                <p class="text-xs text-muted leading-relaxed mb-1"><span class="font-medium text-charcoal">Materials:</span> {product.category === 'Candles' ? '100% soy wax, cotton wick, fragrance oils' : product.category === 'Soaps' ? 'Cold-processed, natural ingredients' : 'Sustainably sourced materials'}</p>
+                <p class="text-xs text-muted leading-relaxed mb-3"><span class="font-medium text-charcoal">Handmade</span> in small batches in Greenville, SC</p>
+                <button class="w-full rounded-full border border-sage/30 px-4 py-2 text-xs font-medium text-sage hover:bg-sage/5 transition-colors" style="font-family: system-ui, sans-serif;" data-inquire-btn data-product-name={product.name}>Request This Item</button>
               </div>
             </div>
           </div>
@@ -162,6 +167,27 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
   </section>
 
   <script>
+    // Product card expand/collapse
+    document.querySelectorAll('[data-product-toggle]').forEach(el => {
+      el.addEventListener('click', () => {
+        const idx = (el as HTMLElement).dataset.productToggle
+        const detail = document.querySelector(`[data-product-detail="${idx}"]`)
+        if (detail) detail.classList.toggle('hidden')
+      })
+    })
+
+    // Inquire buttons scroll to custom order form with product name pre-filled
+    document.querySelectorAll('[data-inquire-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const productName = (btn as HTMLElement).dataset.productName
+        const textarea = document.querySelector('#custom-form textarea[name="details"]') as HTMLTextAreaElement | null
+        if (textarea && productName) {
+          textarea.value = `I'm interested in: ${productName}\n\n`
+        }
+        document.getElementById('custom')?.scrollIntoView({ behavior: 'smooth' })
+      })
+    })
+
     // Custom order form
     document.getElementById('custom-form')?.addEventListener('submit', (e) => {
       e.preventDefault()
