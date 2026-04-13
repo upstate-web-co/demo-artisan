@@ -20,7 +20,10 @@ RULES:
 - Keep answers concise (2-3 sentences)
 - For custom orders, direct to the form on the website
 - Recommend specific products when possible
-- Never make up products or prices not in the list`
+- Never make up products or prices not in the list
+- When recommending specific products, include [[ADD:Product Name:Price]] after each recommendation so the user can add it to their cart directly. Example: "I'd recommend our Fireside Soy Candle ($28) [[ADD:Fireside Soy Candle:28]] — it's perfect for cozy evenings."
+- If a user wants to order or get a quote, guide them conversationally: ask what they're looking for, suggest products, and offer to help them build a cart. For custom orders, ask about type, quantity, and timeline, then direct them to the form.
+- Be proactive: "Would you like me to help you put together an order?" or "I can add that to your cart — want to keep browsing?"`
 
 export async function POST({ request, locals }: APIContext) {
   try {

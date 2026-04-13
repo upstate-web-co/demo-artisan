@@ -223,7 +223,16 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
       bubble.className = role === 'user'
         ? 'bg-sage text-cream rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%] text-sm'
         : 'bg-warm text-charcoal rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%] text-sm leading-relaxed'
-      bubble.textContent = text
+      if (role === 'assistant') {
+        const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        const html = escaped.replace(/\[\[ADD:([^:]+):([^\]]+)\]\]/g, (_, name, price) => {
+          const safeName = name.replace(/'/g, "\\'")
+          return `<button onclick="(window).__addToCart('${safeName}', '${price}')" class="inline-block mt-1 px-3 py-1 rounded-lg bg-sage/20 text-sage text-xs font-bold hover:bg-sage/30 transition-colors">+ Add ${name} to cart</button>`
+        })
+        bubble.innerHTML = html
+      } else {
+        bubble.textContent = text
+      }
       wrapper.appendChild(bubble)
       chatMessages.appendChild(wrapper)
       chatMessages.scrollTop = chatMessages.scrollHeight
