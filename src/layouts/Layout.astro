@@ -17,10 +17,8 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="robots" content="noindex, nofollow" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1602607712066-63af5c8a489c?w=1200&q=80" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://images.unsplash.com" />
 </head>
@@ -28,7 +26,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <!-- Nav -->
   <nav class="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-sage/10">
     <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
-      <a href="/" class="text-xl tracking-wide text-charcoal"><span class="text-sage-dark font-medium">Wren</span> & Fable</a>
+      <a href="/" class="text-xl tracking-wide text-charcoal"><span class="text-sage-dark font-medium">Ember</span> & Oak</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#shop" class="text-muted hover:text-sage-dark transition-colors">Shop</a>
         <a href="#markets" class="text-muted hover:text-sage-dark transition-colors">Markets</a>
@@ -37,37 +35,12 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
         <a href="#shop" class="rounded-full bg-sage px-5 py-2 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Shop Now</a>
         <!-- Cart icon -->
         <button id="cart-toggle" class="relative text-muted hover:text-sage-dark transition-colors" aria-label="Open cart">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
-          <span id="cart-count" class="hidden absolute -top-2 -right-2 bg-sage text-cream text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+          <span id="cart-count" class="hidden absolute -top-2 -right-2 bg-terracotta text-cream text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
         </button>
       </div>
-      <!-- Mobile cart + menu buttons -->
-      <div class="flex items-center gap-2 md:hidden">
-        <button id="cart-toggle-mobile" class="relative text-charcoal p-2" aria-label="Open cart">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
-          <span id="cart-count-mobile" class="hidden absolute -top-1 -right-1 bg-sage text-cream text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
-        </button>
-        <button id="mobile-menu-btn" class="text-charcoal p-2" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
     </div>
   </nav>
-
-  <!-- Mobile menu overlay -->
-  <div id="mobile-menu" class="fixed inset-0 z-[60] bg-cream/95 backdrop-blur-sm hidden flex-col items-center justify-center gap-6 text-lg">
-    <button id="mobile-menu-close" class="absolute top-6 right-6 text-charcoal p-2" aria-label="Close menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
-    <a href="#shop" class="text-muted hover:text-sage-dark transition-colors">Shop</a>
-    <a href="#markets" class="text-muted hover:text-sage-dark transition-colors">Markets</a>
-    <a href="#custom" class="text-muted hover:text-sage-dark transition-colors">Custom Orders</a>
-    <a href="#about" class="text-muted hover:text-sage-dark transition-colors">About</a>
-    <a href="#shop" class="rounded-full bg-sage px-6 py-3 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Shop Now</a>
-  </div>
 
   <main>
     <slot />
@@ -76,7 +49,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
   <!-- Demo Disclaimer -->
   <div class="bg-yellow-50 border-y border-yellow-200 py-3 px-6 text-center">
     <p class="text-xs text-yellow-800">
-      <strong>Portfolio Demo</strong> — This is a fictional business created by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a>. All names, locations, and details are entirely fictional.
+      <strong>Portfolio Demo</strong> — This is a sample site built by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a> to showcase what we build for this industry. This is not a real business.
     </p>
   </div>
 
@@ -85,7 +58,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
     <div class="mx-auto max-w-6xl px-6 py-10">
       <div class="grid md:grid-cols-3 gap-8">
         <div>
-          <p class="text-lg tracking-wide"><span class="text-sage-dark font-medium">Wren</span> & Fable</p>
+          <p class="text-lg tracking-wide"><span class="text-sage-dark font-medium">Ember</span> & Oak</p>
           <p class="text-sm text-muted mt-2">{SITE.tagline}</p>
           <p class="text-sm text-muted mt-1">{SITE.location}</p>
         </div>
@@ -120,113 +93,93 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.taglin
     </div>
   </footer>
 
-  <!-- Inline AI: contextual search bar in hero, not a floating bubble -->
-
   <!-- Cart Drawer -->
-  <div id="cart-backdrop" class="fixed inset-0 z-[70] bg-charcoal/40 backdrop-blur-sm hidden"></div>
-  <div id="cart-drawer" class="fixed top-0 right-0 z-[80] h-full w-full max-w-md bg-cream border-l border-sage/10 shadow-xl translate-x-full transition-transform duration-300 flex flex-col">
+  <div id="cart-backdrop" class="fixed inset-0 z-[70] bg-charcoal/50 backdrop-blur-sm hidden"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 z-[80] h-full w-full max-w-sm bg-cream border-l border-sage/15 shadow-xl translate-x-full transition-transform duration-300 flex flex-col">
     <div class="flex items-center justify-between px-6 py-4 border-b border-sage/10">
       <h2 class="text-lg font-medium text-charcoal">Your Cart</h2>
       <button id="cart-close" class="text-muted hover:text-charcoal p-1" aria-label="Close cart">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
     <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-4"></div>
     <div id="cart-footer" class="hidden border-t border-sage/10 px-6 py-4">
       <div class="flex justify-between text-sm font-medium text-charcoal mb-4">
-        <span>Subtotal</span>
+        <span>Total</span>
         <span id="cart-subtotal">$0</span>
       </div>
-      <button id="cart-checkout" class="w-full rounded-full bg-sage px-6 py-3 font-medium text-cream hover:bg-sage-dark transition-colors text-sm" style="font-family: system-ui, sans-serif;">Request This Order</button>
-      <div id="cart-demo-msg" class="hidden mt-3 rounded-lg bg-sage/10 border border-sage/20 p-3 text-xs text-sage-dark text-center leading-relaxed">
-        This is a portfolio demo by <a href="https://upstate-web.com" class="underline">Upstate Web Co</a>. In production, this connects to secure Stripe checkout.
+      <button id="cart-checkout" class="w-full rounded-full bg-terracotta px-6 py-3 font-medium text-cream hover:bg-terracotta-light transition-colors text-sm" style="font-family: system-ui, sans-serif;">Checkout</button>
+      <div id="cart-demo-msg" class="hidden mt-3 rounded-lg bg-terracotta/10 border border-terracotta/20 p-3 text-xs text-terracotta text-center leading-relaxed" style="font-family: system-ui, sans-serif;">
+        This is a portfolio demo by <a href="https://upstate-web.com" class="underline">Upstate Web Co</a>. In production, this connects to Stripe for secure checkout.
       </div>
     </div>
-    <div id="cart-empty" class="flex-1 flex items-center justify-center text-sm text-muted px-6 text-center">Your cart is empty. Browse the shop to add items.</div>
+    <div id="cart-empty" class="flex-1 flex items-center justify-center text-sm text-muted px-6 text-center">Your cart is empty. Browse our candles, soaps, and gift boxes.</div>
   </div>
 
   <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const close = document.getElementById('mobile-menu-close');
-    btn?.addEventListener('click', () => menu?.classList.replace('hidden', 'flex'));
-    close?.addEventListener('click', () => menu?.classList.replace('flex', 'hidden'));
-    menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu?.classList.replace('flex', 'hidden')));
-  </script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible') })
+    }, { threshold: 0.08, rootMargin: '-20px' })
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 
-  <script>
-    // Cart logic — client-side only, no backend
-    const cart: { name: string; price: number; quantity: number }[] = [];
-
+    // Cart logic
+    const cart: { name: string; price: number; quantity: number }[] = []
     function parsePrice(p: string): number { return parseFloat(p.replace(/[^0-9.]/g, '')) || 0 }
 
     function updateCartUI() {
-      const count = cart.reduce((s, i) => s + i.quantity, 0);
-      const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-      document.querySelectorAll('#cart-count, #cart-count-mobile').forEach(el => {
-        el.textContent = String(count);
-        el.classList.toggle('hidden', count === 0);
-      });
-      const itemsEl = document.getElementById('cart-items')!;
-      const footerEl = document.getElementById('cart-footer')!;
-      const emptyEl = document.getElementById('cart-empty')!;
+      const count = cart.reduce((s, i) => s + i.quantity, 0)
+      const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0)
+      const countEl = document.getElementById('cart-count')!
+      countEl.textContent = String(count)
+      countEl.classList.toggle('hidden', count === 0)
+      const itemsEl = document.getElementById('cart-items')!
+      const footerEl = document.getElementById('cart-footer')!
+      const emptyEl = document.getElementById('cart-empty')!
       if (cart.length === 0) {
-        itemsEl.innerHTML = '';
-        footerEl.classList.add('hidden');
-        emptyEl.classList.remove('hidden');
+        itemsEl.innerHTML = ''; footerEl.classList.add('hidden'); emptyEl.classList.remove('hidden')
       } else {
-        emptyEl.classList.add('hidden');
-        footerEl.classList.remove('hidden');
-        document.getElementById('cart-subtotal')!.textContent = `$${subtotal.toFixed(2)}`;
+        emptyEl.classList.add('hidden'); footerEl.classList.remove('hidden')
+        document.getElementById('cart-subtotal')!.textContent = `$${subtotal.toFixed(2)}`
         itemsEl.innerHTML = cart.map((item, idx) => `
           <div class="flex items-start justify-between py-3 ${idx > 0 ? 'border-t border-sage/10' : ''}">
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-charcoal truncate">${item.name}</p>
-              <p class="text-xs text-muted mt-0.5">$${item.price.toFixed(2)} each</p>
-              <div class="flex items-center gap-2 mt-2">
-                <button data-cart-minus="${idx}" class="w-7 h-7 rounded-full border border-sage/20 text-sage hover:bg-sage/10 flex items-center justify-center text-sm">-</button>
-                <span class="text-sm font-medium w-6 text-center">${item.quantity}</span>
-                <button data-cart-plus="${idx}" class="w-7 h-7 rounded-full border border-sage/20 text-sage hover:bg-sage/10 flex items-center justify-center text-sm">+</button>
-              </div>
+              <p class="text-sm font-medium text-charcoal">${item.name}</p>
+              <p class="text-xs text-muted mt-0.5">$${item.price.toFixed(2)}</p>
             </div>
             <div class="text-right ml-3">
-              <p class="text-sm font-medium text-sage-dark">$${(item.price * item.quantity).toFixed(2)}</p>
-              <button data-cart-remove="${idx}" class="text-xs text-muted hover:text-red-500 mt-1">Remove</button>
+              <p class="text-sm font-medium text-terracotta">$${(item.price * item.quantity).toFixed(2)}</p>
+              <button data-cart-remove="${idx}" class="text-xs text-muted hover:text-red-500 mt-1" style="font-family: system-ui, sans-serif;">Remove</button>
             </div>
           </div>
-        `).join('');
-        itemsEl.querySelectorAll('[data-cart-minus]').forEach(b => b.addEventListener('click', () => { const i = Number((b as HTMLElement).dataset.cartMinus); cart[i].quantity = Math.max(1, cart[i].quantity - 1); updateCartUI(); }));
-        itemsEl.querySelectorAll('[data-cart-plus]').forEach(b => b.addEventListener('click', () => { const i = Number((b as HTMLElement).dataset.cartPlus); cart[i].quantity++; updateCartUI(); }));
-        itemsEl.querySelectorAll('[data-cart-remove]').forEach(b => b.addEventListener('click', () => { cart.splice(Number((b as HTMLElement).dataset.cartRemove), 1); updateCartUI(); }));
+        `).join('')
+        itemsEl.querySelectorAll('[data-cart-remove]').forEach(b => b.addEventListener('click', () => { cart.splice(Number((b as HTMLElement).dataset.cartRemove), 1); updateCartUI() }))
       }
     }
 
     function openCart() {
-      document.getElementById('cart-backdrop')!.classList.remove('hidden');
-      document.getElementById('cart-drawer')!.classList.remove('translate-x-full');
+      document.getElementById('cart-backdrop')!.classList.remove('hidden')
+      document.getElementById('cart-drawer')!.classList.remove('translate-x-full')
     }
     function closeCart() {
-      document.getElementById('cart-drawer')!.classList.add('translate-x-full');
-      document.getElementById('cart-backdrop')!.classList.add('hidden');
+      document.getElementById('cart-drawer')!.classList.add('translate-x-full')
+      document.getElementById('cart-backdrop')!.classList.add('hidden')
     }
 
-    document.getElementById('cart-toggle')?.addEventListener('click', openCart);
-    document.getElementById('cart-toggle-mobile')?.addEventListener('click', openCart);
-    document.getElementById('cart-close')?.addEventListener('click', closeCart);
-    document.getElementById('cart-backdrop')?.addEventListener('click', closeCart);
+    document.getElementById('cart-toggle')?.addEventListener('click', openCart)
+    document.getElementById('cart-close')?.addEventListener('click', closeCart)
+    document.getElementById('cart-backdrop')?.addEventListener('click', closeCart)
     document.getElementById('cart-checkout')?.addEventListener('click', () => {
-      document.getElementById('cart-demo-msg')!.classList.remove('hidden');
-    });
+      document.getElementById('cart-demo-msg')!.classList.remove('hidden')
+    })
 
-    // Expose addToCart globally for product buttons
-    (window as any).__addToCart = function(name: string, priceStr: string) {
-      const price = parsePrice(priceStr);
-      const existing = cart.find(i => i.name === name);
-      if (existing) { existing.quantity++; } else { cart.push({ name, price, quantity: 1 }); }
-      updateCartUI();
-    };
-
-    updateCartUI();
+    // Expose globally for buttons and AI chat
+    ;(window as any).__addToCart = function(name: string, priceStr: string) {
+      const price = parsePrice(priceStr)
+      const existing = cart.find(i => i.name === name)
+      if (existing) { existing.quantity++; } else { cart.push({ name, price, quantity: 1 }) }
+      updateCartUI()
+      openCart()
+    }
   </script>
 </body>
 </html>

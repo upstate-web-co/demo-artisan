@@ -1,15 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { SITE, PRODUCTS, MARKETS } from '../lib/config'
+import { SITE, PRODUCTS, MARKETS, PROCESS_STEPS, MAKER_QUOTE } from '../lib/config'
+
+const giftBoxes = PRODUCTS.filter(p => p.category === 'Gifts')
+const shopProducts = PRODUCTS.filter(p => p.category !== 'Gifts')
 ---
 
 <Layout>
   <!-- Hero -->
   <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&q=75&auto=format" alt="Artisan hands at work" class="absolute inset-0 w-full h-full object-cover brightness-[0.3]" loading="eager" width="1200" height="800" fetchpriority="high" />
+    <img src="https://images.unsplash.com/photo-1572726729207-a78d6feb18d7?w=1600&q=80" alt="Handmade candles" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" loading="eager" />
     <div class="relative text-center px-6">
-      <p class="text-sage-light text-sm uppercase tracking-[0.25em] mb-4" style="font-family: system-ui, sans-serif;">Handmade in Small Batches</p>
-      <h1 class="text-5xl md:text-7xl text-cream tracking-tight">Wren & Fable</h1>
+      <p class="text-sage-light text-sm uppercase tracking-[0.25em] mb-4" style="font-family: system-ui, sans-serif;">Handmade in Travelers Rest, SC</p>
+      <h1 class="text-5xl md:text-7xl text-cream tracking-tight">Ember & Oak</h1>
       <p class="mt-4 text-xl text-cream/80 italic">{SITE.tagline}</p>
       <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a href="#shop" class="rounded-full bg-sage px-8 py-3 font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Shop Now</a>
@@ -18,42 +21,74 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
     </div>
   </section>
 
-  <!-- AI Chat -->
+  <!-- Inline AI Chat -->
   <section class="bg-warm py-8 px-6">
     <div class="mx-auto max-w-xl">
-      <div id="chat-container" class="rounded-xl border border-sage/20 bg-white overflow-hidden">
+      <div class="flex items-center gap-3 mb-4">
+        <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=200&q=80" alt="Ember & Oak" class="w-12 h-12 rounded-full object-cover border-2 border-sage/25 shadow-sm" />
+        <div>
+          <p class="text-sm font-medium text-charcoal" style="font-family: system-ui, sans-serif;">Ask Ember & Oak</p>
+          <p class="text-xs text-muted">Products, scents, markets, custom orders</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-sage/15 bg-white overflow-hidden">
         <div id="chat-messages" class="hidden max-h-80 overflow-y-auto px-4 pt-4 pb-2 space-y-3"></div>
-        <div id="chat-input-bar" class="flex gap-2 p-3">
-          <input id="chat-input" type="text" placeholder="Ask anything — best candle for a gift? What scents do you have? Do you do wedding favors?" class="flex-1 rounded-full border border-sage/20 bg-cream px-5 py-2.5 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
+        <div id="chat-quick" class="flex gap-2 px-3 py-2.5 overflow-x-auto border-b border-sage/10" style="font-family: system-ui, sans-serif;">
+          <button class="chat-q shrink-0 rounded-full border border-sage/20 bg-sage/5 px-3 py-1.5 text-xs font-medium text-sage hover:bg-sage/10 transition-colors" data-msg="What's your best-selling candle?">Candles</button>
+          <button class="chat-q shrink-0 rounded-full border border-sage/20 bg-sage/5 px-3 py-1.5 text-xs font-medium text-sage hover:bg-sage/10 transition-colors" data-msg="Where can I find you at markets?">Markets</button>
+          <button class="chat-q shrink-0 rounded-full border border-terracotta/20 bg-terracotta/5 px-3 py-1.5 text-xs font-medium text-terracotta hover:bg-terracotta/10 transition-colors" data-msg="Do you do custom gift boxes?">Gifts</button>
+        </div>
+        <div class="flex gap-2 p-3">
+          <input id="chat-input" type="text" placeholder="Ask about products, scents, custom orders..." maxlength="500" autocomplete="off" class="flex-1 rounded-full border border-sage/15 bg-cream px-5 py-2.5 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
           <button id="chat-send" class="rounded-full bg-sage px-5 py-2.5 text-sm font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Ask</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Gift Boxes (Featured) -->
+  <section class="py-20 px-6 bg-warm">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="reveal text-3xl text-center mb-2">Gift Boxes</h2>
+      <p class="text-center text-muted text-sm mb-10">Ready to gift. Beautifully wrapped. Ships in 1-2 days.</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        {giftBoxes.map((product) => (
+          <div class="group rounded-xl border border-terracotta/15 bg-white overflow-hidden hover:shadow-lg transition-all duration-300">
+            <div class="aspect-[16/9] overflow-hidden">
+              <img src={product.image} alt={product.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+            </div>
+            <div class="p-5">
+              <h3 class="text-lg font-medium text-charcoal">{product.name}</h3>
+              <p class="text-sm text-muted mt-1">{product.description}</p>
+              <div class="flex items-center justify-between mt-4">
+                <span class="text-xl font-medium text-terracotta">{product.price}</span>
+                <button class="rounded-full bg-terracotta px-5 py-2 text-sm font-medium text-cream hover:bg-terracotta-light transition-colors" style="font-family: system-ui, sans-serif;">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Shop -->
   <section id="shop" class="py-20 px-6">
-    <div class="mx-auto max-w-6xl">
-      <h2 class="text-3xl text-center mb-2">Shop</h2>
+    <div class="mx-auto max-w-4xl">
+      <h2 class="reveal text-3xl text-center mb-2">Shop</h2>
       <p class="text-center text-muted text-sm mb-10">Free shipping on orders over $50. Everything handmade in small batches.</p>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {PRODUCTS.map((product, i) => (
-          <div class="group rounded-xl border border-sage/10 bg-white overflow-hidden hover:shadow-md transition-shadow">
-            <div class="aspect-square overflow-hidden cursor-pointer" data-product-toggle={i}>
+      <div class="grid sm:grid-cols-2 gap-5">
+        {shopProducts.map((product) => (
+          <div class="group rounded-xl border border-sage/10 bg-white overflow-hidden hover:shadow-md hover:-translate-y-1 hover:border-sage/25 transition-all duration-300">
+            <div class="aspect-square overflow-hidden">
               <img src={product.image} alt={product.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
             <div class="p-4">
               <p class="text-xs text-sage uppercase tracking-wide" style="font-family: system-ui, sans-serif;">{product.category}</p>
-              <h3 class="font-medium text-charcoal mt-1 cursor-pointer" data-product-toggle={i}>{product.name}</h3>
+              <h3 class="font-medium text-charcoal mt-1">{product.name}</h3>
               <p class="text-xs text-muted mt-1 leading-relaxed">{product.description}</p>
               <div class="flex items-center justify-between mt-3">
                 <span class="text-lg font-medium text-sage-dark">{product.price}</span>
-                <button class="rounded-full bg-sage px-4 py-1.5 text-xs font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;" data-inquire-btn data-product-name={product.name}>Inquire</button>
-              </div>
-              <div class="hidden mt-3 pt-3 border-t border-sage/10" data-product-detail={i}>
-                <p class="text-xs text-muted leading-relaxed mb-1"><span class="font-medium text-charcoal">Materials:</span> {product.category === 'Candles' ? '100% soy wax, cotton wick, fragrance oils' : product.category === 'Soaps' ? 'Cold-processed, natural ingredients' : 'Sustainably sourced materials'}</p>
-                <p class="text-xs text-muted leading-relaxed mb-3"><span class="font-medium text-charcoal">Handmade</span> in small batches in Greenville, SC</p>
-                <button class="w-full rounded-full border border-sage/30 px-4 py-2 text-xs font-medium text-sage hover:bg-sage/5 transition-colors" style="font-family: system-ui, sans-serif;" data-inquire-btn data-product-name={product.name}>Request This Item</button>
+                <button onclick={`window.__addToCart('${product.name}', '${product.price}')`} class="rounded-full bg-sage px-4 py-1.5 text-xs font-medium text-cream hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Add to Cart</button>
               </div>
             </div>
           </div>
@@ -63,10 +98,26 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
     </div>
   </section>
 
+  <!-- How It's Made -->
+  <section class="py-20 px-6 bg-warm">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="reveal text-3xl text-center mb-10">How It's Made</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        {PROCESS_STEPS.map((step) => (
+          <div class="reveal">
+            <div class="text-3xl mb-3">{step.icon}</div>
+            <h3 class="font-medium text-charcoal" style="font-family: system-ui, sans-serif;">{step.title}</h3>
+            <p class="text-sm text-muted mt-2 leading-relaxed">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Market Schedule -->
   <section id="markets" class="py-20 px-6 bg-warm">
     <div class="mx-auto max-w-3xl">
-      <h2 class="text-3xl text-center mb-2">Find Us at Markets</h2>
+      <h2 class="reveal text-3xl text-center mb-2">Find Us at Markets</h2>
       <p class="text-center text-muted text-sm mb-10">Touch it, smell it, take it home. We'd love to meet you in person.</p>
       <div class="space-y-3">
         {MARKETS.map((market) => (
@@ -75,7 +126,7 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
               <h3 class="font-medium text-charcoal">{market.name}</h3>
               <p class="text-sm text-muted">{market.day} &middot; {market.time}</p>
             </div>
-            <span class="text-xs bg-sage/10 text-sage-dark px-3 py-1 rounded-full" style="font-family: system-ui, sans-serif;">{market.season}</span>
+            <span class={`text-xs px-3 py-1 rounded-full ${market.season.includes('Year-round') ? 'bg-sage/15 text-sage-dark' : 'bg-terracotta/10 text-terracotta'}`} style="font-family: system-ui, sans-serif;">{market.season}</span>
           </div>
         ))}
       </div>
@@ -85,7 +136,7 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
   <!-- Custom Orders -->
   <section id="custom" class="py-20 px-6">
     <div class="mx-auto max-w-2xl">
-      <h2 class="text-3xl text-center mb-2">Custom Orders</h2>
+      <h2 class="reveal text-3xl text-center mb-2">Custom Orders</h2>
       <p class="text-center text-muted text-sm mb-10">Wedding favors, corporate gifts, event scenting, custom labels. Tell us what you're dreaming up.</p>
 
       <form id="custom-form" class="space-y-4 bg-white rounded-xl border border-sage/10 p-6">
@@ -142,15 +193,18 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
       <div>
         <h2 class="text-3xl mb-4">Our Story</h2>
         <p class="text-muted leading-relaxed mb-4">
-          Wren & Fable started at a kitchen table — one candle at a time. What began as a hobby for my own home turned into something bigger when friends kept asking "where did you get that candle?"
+          Ember & Oak started at a kitchen table in Travelers Rest — one candle at a time. What began as a hobby for my own home turned into something bigger when friends kept asking "where did you get that candle?"
         </p>
         <p class="text-muted leading-relaxed mb-4">
           Every candle is hand-poured in small batches using 100% soy wax and cotton wicks. Every soap is cold-processed with ingredients I can pronounce. Nothing mass-produced. Nothing rushed.
         </p>
         <p class="text-muted leading-relaxed mb-4">
-          You'll find us at local markets on weekends, and right here online the rest of the time. We ship everywhere in the US — free over $50.
+          You'll find us at farmers markets across the Upstate on weekends, and right here online the rest of the time. We ship everywhere in the US — free over $50.
         </p>
-        <p class="text-charcoal font-medium italic">— Sarah, maker & owner</p>
+        <blockquote class="border-l-4 border-terracotta pl-4 mt-6">
+          <p class="text-lg italic text-charcoal">"{MAKER_QUOTE}"</p>
+          <cite class="block mt-2 text-sm text-muted not-italic">— Sarah, maker & owner</cite>
+        </blockquote>
       </div>
     </div>
   </section>
@@ -169,27 +223,6 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
   </section>
 
   <script>
-    // Product card expand/collapse
-    document.querySelectorAll('[data-product-toggle]').forEach(el => {
-      el.addEventListener('click', () => {
-        const idx = (el as HTMLElement).dataset.productToggle
-        const detail = document.querySelector(`[data-product-detail="${idx}"]`)
-        if (detail) detail.classList.toggle('hidden')
-      })
-    })
-
-    // Inquire buttons scroll to custom order form with product name pre-filled
-    document.querySelectorAll('[data-inquire-btn]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const productName = (btn as HTMLElement).dataset.productName
-        const textarea = document.querySelector('#custom-form textarea[name="details"]') as HTMLTextAreaElement | null
-        if (textarea && productName) {
-          textarea.value = `I'm interested in: ${productName}\n\n`
-        }
-        document.getElementById('custom')?.scrollIntoView({ behavior: 'smooth' })
-      })
-    })
-
     // Custom order form
     document.getElementById('custom-form')?.addEventListener('submit', (e) => {
       e.preventDefault()
@@ -212,71 +245,41 @@ import { SITE, PRODUCTS, MARKETS } from '../lib/config'
     const chatInput = document.getElementById('chat-input') as HTMLInputElement
     const chatSend = document.getElementById('chat-send')!
     const chatMessages = document.getElementById('chat-messages')!
-    let chatHistory: Array<{ role: string; content: string }> = []
+    const chatQuick = document.getElementById('chat-quick')!
+    const chatHistory: Array<{ role: string; content: string }> = []
     let chatBusy = false
-
-    function addMessage(role: string, text: string) {
+    function escapeHtml(t: string): string { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br />') }
+    function linkify(h: string): string {
+      h = h.replace(/\(864\)\s*555-4821/g, '<a href="tel:+18645554821" class="text-sage underline">(864) 555-4821</a>')
+      h = h.replace(/hello@emberandoak\.com/g, '<a href="mailto:hello@emberandoak.com" class="text-sage underline">hello@emberandoak.com</a>')
+      return h
+    }
+    function addMsg(role: string, text: string) {
       chatMessages.classList.remove('hidden')
-      const wrapper = document.createElement('div')
-      wrapper.className = role === 'user' ? 'flex justify-end' : 'flex justify-start'
+      const el = document.createElement('div'); el.className = role === 'user' ? 'flex justify-end' : 'flex justify-start'
       const bubble = document.createElement('div')
-      bubble.className = role === 'user'
-        ? 'bg-sage text-cream rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%] text-sm'
-        : 'bg-warm text-charcoal rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%] text-sm leading-relaxed'
-      if (role === 'assistant') {
-        const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        let html = escaped.replace(/\[\[ADD:([^:]+):([^\]]+)\]\]/g, (_, name, price) => {
-          const safeName = name.replace(/'/g, "\\'")
-          return `<button onclick="(window).__addToCart('${safeName}', '${price}')" class="inline-block mt-1 px-3 py-1 rounded-lg bg-sage/20 text-sage text-xs font-bold hover:bg-sage/30 transition-colors">+ Add ${name} to cart</button>`
-        })
-        html = html.replace(/\((\d{3})\)\s*(\d{3})-(\d{4})/g, '<a href="tel:$1$2$3" class="underline">($1) $2-$3</a>')
-        html = html.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" class="underline">$1</a>')
-        bubble.innerHTML = html
-      } else {
-        bubble.textContent = text
-      }
-      wrapper.appendChild(bubble)
-      chatMessages.appendChild(wrapper)
-      chatMessages.scrollTop = chatMessages.scrollHeight
+      bubble.className = role === 'user' ? 'bg-sage/8 text-charcoal rounded-xl rounded-tr-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed' : 'bg-warm text-charcoal rounded-xl rounded-tl-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed border border-sage/8'
+      bubble.innerHTML = role === 'user' ? escapeHtml(text) : linkify(escapeHtml(text))
+      el.appendChild(bubble); chatMessages.appendChild(el); chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
     function showTyping() {
-      const el = document.createElement('div')
-      el.id = 'typing-indicator'
-      el.className = 'flex justify-start'
-      el.innerHTML = '<div class="bg-warm text-muted rounded-2xl rounded-bl-sm px-4 py-2 text-sm">Thinking...</div>'
-      chatMessages.appendChild(el)
-      chatMessages.scrollTop = chatMessages.scrollHeight
+      const el = document.createElement('div'); el.id = 'typing-indicator'; el.className = 'flex justify-start'
+      el.innerHTML = '<div class="bg-warm border border-sage/8 rounded-xl rounded-tl-sm px-4 py-2.5"><div class="flex gap-1.5 items-center h-5"><span class="w-1.5 h-1.5 rounded-full bg-sage/30 animate-bounce"></span><span class="w-1.5 h-1.5 rounded-full bg-sage/30 animate-bounce" style="animation-delay:.15s"></span><span class="w-1.5 h-1.5 rounded-full bg-sage/30 animate-bounce" style="animation-delay:.3s"></span></div></div>'
+      chatMessages.appendChild(el); chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
-    async function sendMessage() {
-      const text = chatInput.value.trim()
-      if (!text || chatBusy) return
-      chatBusy = true
-      chatInput.value = ''
-      addMessage('user', text)
-      showTyping()
+    async function sendChat(text: string) {
+      if (!text || chatBusy) return; chatBusy = true; chatInput.value = ''; addMsg('user', text); showTyping()
       try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, history: chatHistory }),
-        })
-        const data = await res.json()
+        const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text, history: chatHistory }) })
         document.getElementById('typing-indicator')?.remove()
-        const reply = data.reply || "I'm not sure about that. Try asking about our products, markets, or custom orders!"
-        addMessage('assistant', reply)
-        chatHistory.push({ role: 'user', content: text })
-        chatHistory.push({ role: 'assistant', content: reply })
-        if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20)
-      } catch {
-        document.getElementById('typing-indicator')?.remove()
-        addMessage('assistant', 'Something went wrong. Email us at hello@wrenandfable.com!')
-      }
-      chatBusy = false
+        const data = await res.json(); const reply = data.reply || 'Not sure — email us at hello@emberandoak.com!'
+        addMsg('assistant', reply); chatHistory.push({ role: 'user', content: text }); chatHistory.push({ role: 'assistant', content: reply })
+        if (chatHistory.length > 20) chatHistory.splice(0, chatHistory.length - 20)
+      } catch { document.getElementById('typing-indicator')?.remove(); addMsg('assistant', 'Something went wrong. Email hello@emberandoak.com!') }
+      chatBusy = false; chatInput.focus()
     }
-
-    chatSend.addEventListener('click', sendMessage)
-    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage() })
+    chatSend.addEventListener('click', () => sendChat(chatInput.value.trim()))
+    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(chatInput.value.trim()) })
+    document.querySelectorAll('.chat-q').forEach(btn => { btn.addEventListener('click', () => { sendChat((btn as HTMLElement).dataset.msg!); chatQuick.remove() }) })
   </script>
 </Layout>

@@ -13,23 +13,21 @@ CUSTOM ORDERS: Wedding favors, corporate gifts, custom labels, event scenting. F
 
 SHIPPING: Free over $50. US only. Ships within 3-5 business days.
 
-ABOUT: Handmade in small batches by Sarah. 100% soy wax, cotton wicks, cold-processed soaps.
+ABOUT: Handmade in small batches by Sarah in Travelers Rest, SC. 100% soy wax, cotton wicks, cold-processed soaps.
 
 RULES:
 - Be warm, helpful, and knowledgeable about the products
 - Keep answers concise (2-3 sentences)
-- CONVERSATION STYLE: When gathering information from the user, ask only 2-3 related questions at a time, then wait for their response before asking more. Never list more than 3 questions in a single message. Keep it conversational — like a friendly human, not a form.
 - For custom orders, direct to the form on the website
 - Recommend specific products when possible
-- Never make up products or prices not in the list
-- When recommending specific products, include [[ADD:Product Name:Price]] after each recommendation so the user can add it to their cart directly. Example: "I'd recommend our Fireside Soy Candle ($28) [[ADD:Fireside Soy Candle:28]] — it's perfect for cozy evenings."
-- If a user wants to order or get a quote, guide them conversationally: ask what they're looking for, suggest products, and offer to help them build a cart. For custom orders, ask about type, quantity, and timeline, then direct them to the form.
-- Be proactive: "Would you like me to help you put together an order?" or "I can add that to your cart — want to keep browsing?"`
+- Never make up products or prices not in the list`
 
 export async function POST({ request, locals }: APIContext) {
   try {
-    const { message, history = [] } = await request.json() as { message?: string; history?: Array<{ role: string; content: string }> }
-    if (!message || typeof message !== 'string') {
+    const body = await request.json()
+    const message = body.message || ''
+    const history: Array<{role: string; content: string}> = body.history || []
+    if (!message) {
       return Response.json({ reply: 'What can I help you with?' })
     }
 
@@ -45,7 +43,7 @@ export async function POST({ request, locals }: APIContext) {
         return Response.json({ reply: `We have two soaps: Honey Oat ($12, great for sensitive skin) and Charcoal Detox ($14, deep-cleansing for face and body). Both cold-processed and handmade.` })
       }
       if (lower.includes('market') || lower.includes('where') || lower.includes('find')) {
-        return Response.json({ reply: `You can find us at Riverside Artisan Market (Sat 8am-12pm, Apr-Oct) and Downtown Makers Fair (1st & 3rd Sat, year-round). We're also stocked at The Collective year-round!` })
+        return Response.json({ reply: `You can find us at Travelers Rest Farmers Market (Sat 8am-12pm, Apr-Oct) and TD Saturday Market downtown (1st & 3rd Sat, year-round). We're also stocked at Main Collective in Taylors!` })
       }
       if (lower.includes('custom') || lower.includes('wedding') || lower.includes('gift') || lower.includes('corporate') || lower.includes('wholesale')) {
         return Response.json({ reply: `We'd love to help! Fill out the custom order form on this page with your details (type, quantity, timeline) and we'll send a quote within 48 hours.` })
@@ -67,10 +65,7 @@ export async function POST({ request, locals }: APIContext) {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 256,
         system: SYSTEM_PROMPT,
-        messages: [
-          ...history.slice(-20).map(h => ({ role: h.role as 'user' | 'assistant', content: h.content })),
-          { role: 'user' as const, content: message },
-        ],
+        messages: [...history.slice(-18).map((h: {role: string; content: string}) => ({ role: h.role, content: h.content })), { role: 'user', content: message }],
       }),
     })
 
